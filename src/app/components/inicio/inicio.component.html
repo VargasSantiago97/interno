@@ -1,0 +1,29 @@
+<table>
+    <thead>
+        <tr>
+            <th *ngFor="let col of columns">{{col.header}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of dataTabla">
+            <td *ngFor="let col of columns">{{data[col.field]}}</td>
+        </tr>
+        <tr>
+            <td>Dato 1</td>
+            <td rowspan="3">Dato que ocupa dos filas</td>
+            <td>Dato 3</td>
+            <td>Dato 3</td>
+        </tr>
+        <tr>
+            <td>Dato 4</td>
+            <td>s</td>
+            <td>Dato 3</td>
+        </tr>
+        <tr>
+            <td>Dato 7</td>
+            <td>Dato 8</td>
+            <td>Dato 9</td>
+            <td>Dato 3</td>
+        </tr>
+    </tbody>
+</table>
