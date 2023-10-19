@@ -1,15 +1,29 @@
-table {
+
+#miTabla {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    /* Opcional: Añade margen superior para separar la tabla de otros elementos */
 }
 
-th, td {
-    border: 1px solid #ddd;
-    padding: 2px;
+#miTabla th,
+#miTabla td {
+    border: 1px solid #dddddd;
     text-align: left;
+    padding: 2px;
 }
 
-th {
+#miTabla th {
     background-color: #f2f2f2;
+    /* Color de fondo para los encabezados */
+}
+
+#miTabla tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+    /* Color de fondo para las filas pares */
+}
+
+#miTabla tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+    /* Color de fondo para las filas impares */
 }
