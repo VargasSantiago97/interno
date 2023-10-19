@@ -38,6 +38,7 @@ export class InicioComponent {
             { header: 'KG BAL', field: 'kg_balanza' },
             { header: 'KG REG', field: 'kg_regulacion' },
             { header: 'KG NETO', field: 'kg_neto' },
+            { header: 'KG ACOND.', field: 'kg_acondicionados' },
             { header: 'KG DESTINO', field: 'kg_destino' },
             { header: 'KG MERM', field: 'kg_mermas' },
             { header: 'KG FINAL', field: 'kg_final' },
@@ -83,6 +84,7 @@ export class InicioComponent {
                 kg_regulacion: mov.kg_regulacion,
                 kg_neto: mov.kg_neto_final,
 
+                kg_acondicionados: 0,
                 kg_destino: 0,
                 kg_mermas: 0,
                 kg_final: 0,
@@ -99,10 +101,11 @@ export class InicioComponent {
             dato.contrato = this.db_local['movimiento_contrato'].some((e:any) => { return e.id_movimiento == mov.id }) ? this.db_local['movimiento_contrato'].find((e:any) => { return e.id_movimiento == mov.id }).id_contrato : ''
 
             dato.aplicacion = this.db_local['movimiento_contrato'].filter((e:any) => { return e.id_movimiento == mov.id }).reduce((acc:any, curr:any) => { return acc + parseInt(curr.kilos) }, 0)
-/* 
+            /* 
             CREATE TABLE "datos" (
                 "id"	TEXT,
                 "id_movimiento"	TEXT,
+                "kg_acondicionados" INTEGER,
                 "kg_destino"	INTEGER,
                 "kg_mermas"	INTEGER,
                 "kg_final"	INTEGER,
@@ -124,7 +127,6 @@ export class InicioComponent {
         this.cs.getDB('movimientos').subscribe(
             (res: any) => {
                 this.movimientos = res
-                console.log(res)
                 this.generarDataTabla()
             },
             (err: any) => {
