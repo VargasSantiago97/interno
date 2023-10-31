@@ -1,0 +1,30 @@
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.desvanecer {
+    animation: fade 0.1s ease;
+    /* Puedes ajustar la duración y la función de temporización aquí */
+}
+
+.seleccionado{
+    border: 10px solid rgba(77, 77, 77, 0.89);
+    padding: 20px;
+    border-radius: 20px;
+    font-size: 100px;
+    text-align: center;
+}
+
+.otro {
+    border: 3px solid rgba(77, 77, 77, 0.89);
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 50px;
+    text-align: center;
+}

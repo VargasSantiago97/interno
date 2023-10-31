@@ -1,6 +1,8 @@
 <button (click)="mostrar='inicio'">INICIO</button>
 <button (click)="mostrar='contratos'">CONTRATOS</button>
+<button (click)="mostrar='sorteo'">SORTEO</button>
 
 <br><br>
 
 <app-inicio *ngIf="mostrar=='inicio'"></app-inicio>
+<app-sorteo *ngIf="mostrar=='sorteo'"></app-sorteo>

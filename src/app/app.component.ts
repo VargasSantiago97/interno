@@ -6,6 +6,6 @@ import { Component } from '@angular/core';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    mostrar:any = 'inicio'
+    mostrar:any = 'sorteo'
     title = 'interno';
 }
