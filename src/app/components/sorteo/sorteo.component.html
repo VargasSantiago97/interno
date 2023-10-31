@@ -1,4 +1,4 @@
-<div class="container-xxl">
+<div class="mx-5">
     <h3 [class.desvanecer]="mostrarDiv" class="otro">{{dato(selector-5)}}</h3>
     <h3 [class.desvanecer]="mostrarDiv" class="otro">{{dato(selector-4)}}</h3>
     <h3 [class.desvanecer]="mostrarDiv" class="otro">{{dato(selector-3)}}</h3>
@@ -17,7 +17,11 @@
 <br><br>
 <br><br>
 
-<button (click)="sortear()">SORTEO</button>
+<div class="container">
+    <button type="button" class="btn btn-primary" (click)="sortear()">SORTEAR</button>
+</div>
+
+<br><br><br><br>
 <button (click)="mostrar(true)">MOSTRAR</button>
 <button (click)="moverDiv()">MOVVER</button>
 

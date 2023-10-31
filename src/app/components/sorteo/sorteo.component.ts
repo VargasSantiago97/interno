@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class SorteoComponent {
     selector: any = 0
     vuelta: any = 0
-    vueltas: any = 20
+    vueltas: any = 40
 
     mostrando: any = true
 
@@ -16,7 +16,7 @@ export class SorteoComponent {
     mostrarDiv: boolean = false
 
     datosSorteo = [
-        { nombre: 'Opción 1 Opcion 1 Opcion 1 Opcion 1' },
+        { nombre: 'Opción 1' },
         { nombre: 'Opción 2' },
         { nombre: 'Opción 3' },
         { nombre: 'Opción 4' },
@@ -25,11 +25,27 @@ export class SorteoComponent {
         { nombre: 'Opción 7' },
         { nombre: 'Opción 8' },
         { nombre: 'Opción 9' },
-        { nombre: 'Opción 10' }
+        { nombre: 'Opción 10' },
+        { nombre: 'Opción 11' },
+        { nombre: 'Opción 12' },
+        { nombre: 'Opción 13' },
+        { nombre: 'Opción 14' },
+        { nombre: 'Opción 15' },
+        { nombre: 'Opción 16' },
+        { nombre: 'Opción 17' },
+        { nombre: 'Opción 18' },
+        { nombre: 'Opción 19' },
+        { nombre: 'Vargas, Santiago Manuel 💕' },
+        { nombre: 'Opción 21' },
+        { nombre: 'Opción 22' },
+        { nombre: 'Opción 23' },
+        { nombre: 'Opción 24' },
+        { nombre: 'Opción 25' },
     ];
 
     sortear() {
-        this.vueltas = this.vueltas + Math.floor(this.datosSorteo.length * Math.random())
+        //this.vueltas = this.vueltas + Math.floor(this.datosSorteo.length * Math.random())
+
         this.mostrando = false
 
         this.girar()
@@ -41,7 +57,7 @@ export class SorteoComponent {
                 this.selector++
                 this.vuelta++
                 this.girar()
-            }, 50 + (this.vuelta * 5));
+            }, 1 + (this.vuelta * 4));
         } else {
             this.vuelta = 0
         }
