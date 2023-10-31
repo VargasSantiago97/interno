@@ -1,25 +1,18 @@
-@keyframes fade {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
+.containerr {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: visible;
 }
 
-.desvanecer {
-    animation: fade 0.1s ease;
-    /* Puedes ajustar la duración y la función de temporización aquí */
-}
-
-.seleccionado{
-    border: 10px solid rgba(77, 77, 77, 0.89);
+.seleccionado {
+    border: 15px solid rgba(65, 65, 65, 0.919);
     padding: 20px;
     border-radius: 20px;
     font-size: 100px;
     text-align: center;
-    background-color: rgba(0, 255, 34, 0.336);
+    background-color: rgb(47, 255, 0);
+    color: rgb(255, 255, 255);
 }
 
 .otro {
@@ -28,4 +21,27 @@
     border-radius: 10px;
     font-size: 50px;
     text-align: center;
+    color: rgb(79, 79, 79);
+}
+
+.paper {
+    width: 20px;
+    height: 20px;
+    background-color: #f00;
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0;
+    animation: falling 2s linear infinite;
+}
+
+@keyframes falling {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
 }
