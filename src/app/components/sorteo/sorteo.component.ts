@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ComunicacionService } from 'src/app/services/comunicacion.service';
 
 @Component({
     selector: 'app-sorteo',
@@ -8,7 +9,7 @@ import { Component } from '@angular/core';
 export class SorteoComponent {
     selector: any = 0
     vuelta: any = 0
-    vueltas: any = 40
+    vueltas: any = 50
 
     mostrando: any = true
     mostrarPapeles: any = false
@@ -18,6 +19,8 @@ export class SorteoComponent {
     mostrarDiv: boolean = false
 
     papers: { color: string, left: string  }[] = [];
+
+    db: any = {}
 
     datosSorteo = [
         { nombre: "Alexander William Thompson" },
@@ -53,7 +56,36 @@ export class SorteoComponent {
         { nombre: "Jacob Benjamin Nelson" }
     ];
 
+    constructor(private cs: ComunicacionService){}
+
     ngOnInit(){
+        this.verificaSorteo()
+    }
+
+    verificaSorteo(){
+        this.cs.getDB('acciones', this.db, () => {
+            
+            //VERIFICAR SI HAY QUE SORTEAR
+            var estado = this.db['acciones'].find((e:any) => { return e.id == 'sortear' }).estado
+
+            if(estado == 1){
+                var editar = {
+                    id: 'sortear',
+                    tipo: 'sortear',
+                    accion: 'sortear',
+                    estado: 0
+                }
+
+                this.cs.updateDB('acciones', editar, () => {
+                    this.sortear()
+                    setTimeout(() => { this.verificaSorteo() }, 5000)
+                })
+
+            } else {
+                setTimeout(() => { this.verificaSorteo() }, 100)
+            }
+
+        })
     }
 
     sortear() {
@@ -70,10 +102,12 @@ export class SorteoComponent {
                 this.selector++
                 this.vuelta++
                 this.girar()
-            }, 1 + (this.vuelta * 4));
+            }, 1 + (this.vuelta * 2));
         } else {
             this.vuelta = 0
-            this.ganador()
+            setTimeout(() => {
+                this.ganador()
+            }, 500);
         }
     }
 

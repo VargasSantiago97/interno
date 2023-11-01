@@ -14,14 +14,25 @@
     background-color: rgb(47, 255, 0);
     color: rgb(255, 255, 255);
 }
-
-.otro {
-    border: 3px solid rgba(77, 77, 77, 0.89);
-    padding: 10px;
+.pegado {
+    border: 6px solid rgba(77, 77, 77, 0.89);
+    padding: 15px;
     border-radius: 10px;
     font-size: 50px;
     text-align: center;
     color: rgb(79, 79, 79);
+    margin-left: 150px;
+    margin-right: 150px;
+}
+.otro {
+    border: 3px solid rgba(77, 77, 77, 0.89);
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 30px;
+    text-align: center;
+    color: rgb(79, 79, 79);
+    margin-left: 300px;
+    margin-right: 300px;
 }
 
 .paper {

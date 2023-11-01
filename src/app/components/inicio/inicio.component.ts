@@ -124,30 +124,11 @@ export class InicioComponent {
     }
 
     ejecutar() {
-        this.cs.getDB('movimientos').subscribe(
-            (res: any) => {
-                this.movimientos = res
-                this.generarDataTabla()
-            },
-            (err: any) => {
-                console.error(err)
-            }
-        )
+
     }
 
     getDB(tabla: any, fn: any = false) {
-        this.cs.getDB(tabla).subscribe(
-            (res: any) => {
-                this.db[tabla] = res
 
-                if (fn) {
-                    fn()
-                }
-            },
-            (err: any) => {
-                console.error(err)
-            }
-        )
     }
 
     getSqlite(tabla: any, fn: any = false) {
