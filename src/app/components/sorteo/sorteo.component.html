@@ -8,25 +8,27 @@
 <div class="contenedor p-5">
 
     <div>
-        <h3 class="otro">{{dato(selector-5)}}</h3>
-        <h3 class="otro">{{dato(selector-4)}}</h3>
-        <h3 class="otro">{{dato(selector-3)}}</h3>
+        <h3 class="otro" style="opacity: 0.2;">{{dato(selector-5)}}</h3>
+        <h3 class="otro" style="opacity: 0.4;">{{dato(selector-4)}}</h3>
 
-        <h3 class="otro">{{dato(selector-2)}}</h3>
+        <h3 class="otro" style="opacity: 0.6;">{{dato(selector-3)}}</h3>
+        <h3 class="otro" style="opacity: 0.8;">{{dato(selector-2)}}</h3>
+
         <h3 class="pegado">{{dato(selector-1)}}</h3>
 
-        <h1 class="seleccionado" [ngStyle]="{backgroundColor: fondoGanador}"><strong>{{dato(selector)}}</strong></h1>
+        <h1 class="seleccionado" [ngStyle]="{backgroundColor: fondoGanador, }"><strong>{{dato(selector)}}</strong></h1>
 
         <h3 class="pegado">{{dato(selector+1)}}</h3>
-        <h3 class="otro">{{dato(selector+2)}}</h3>
 
-        <h3 class="otro">{{dato(selector+3)}}</h3>
-        <h3 class="otro">{{dato(selector+4)}}</h3>
-        <h3 class="otro">{{dato(selector+5)}}</h3>
+        <h3 class="otro" style="opacity: 0.8;">{{dato(selector+2)}}</h3>
+        <h3 class="otro" style="opacity: 0.6;">{{dato(selector+3)}}</h3>
+
+        <h3 class="otro" style="opacity: 0.4;">{{dato(selector+4)}}</h3>
+        <h3 class="otro" style="opacity: 0.2;">{{dato(selector+5)}}</h3>
     </div>
 
 
-    <br><br>
+    <br><br><br>
 
     <div>
         <button type="button" class="btn btn-primary mx-1" (click)="sortear()">SORTEAR</button>
