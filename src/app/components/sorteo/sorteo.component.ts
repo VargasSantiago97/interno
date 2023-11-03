@@ -12,21 +12,24 @@ export class SorteoComponent {
     vueltas: any = 0
     vueltasIniciales: any = 112
 
+    //1: clientes importarten, 3: clientes menos importantes
     tiposDeSorteoRealizar: any = [3, 3, 3, 2, 2, 2, 1, 1, 1]
-    sorteActual: any = 0
+    
+    premios: any = [
+        'premio 1',
+        'premio 2',
+        'premio 3',
+        'premio 4',
+        'premio 5',
+        'premio 6',
+        'premio 7',
+        'premio 8',
+        'premio 9',
+        'premio 10',
+    ]
 
-    mostrando: any = true
-    mostrarPapeles: any = false
 
-    fondoGanador: any = 'rgb(47, 255, 0)'
-
-    mostrarDiv: boolean = false
-
-    papers: { color: string, left: string }[] = [];
-
-    db: any = {}
-
-    clientes = [
+    clientes:any = [
         {
             "id": "30-70850333-5",
             "tipo": "3",
@@ -35,7 +38,7 @@ export class SorteoComponent {
         {
             "id": "33-71622271-9",
             "tipo": "3",
-            "nombre": "AGRO CIN DE PABLO CINTIOLI Y GASTON CINTIOLI SOCIEDAD SIMPLE"
+            "nombre": "AGRO CIN DE P. Y G. CINTIOLI S.S."
         },
         {
             "id": "33-70799842-9",
@@ -45,7 +48,7 @@ export class SorteoComponent {
         {
             "id": "30-71520736-9",
             "tipo": "3",
-            "nombre": "AGROGANADERA MARTIN HERMANOS SA"
+            "nombre": "AGROGANADERA MARTIN HERMANOS S.A."
         },
         {
             "id": "30-71748532-3",
@@ -100,7 +103,7 @@ export class SorteoComponent {
         {
             "id": "30-71463535-9",
             "tipo": "2",
-            "nombre": "BUENA ESPERANZA SOCIEDAD DE HECHO DE GORDYCZYK GERMAN Y GORDYCZYK ADRIAN"
+            "nombre": "BUENA ESPERANZA SH DE GORDYCZYK"
         },
         {
             "id": "20-14799265-4",
@@ -160,7 +163,7 @@ export class SorteoComponent {
         {
             "id": "30-70953544-3",
             "tipo": "3",
-            "nombre": "ESTABLECIMIENTO RIO SECO S.R.L."
+            "nombre": "ESTABLECIMIENTO RIO SECO SRL"
         },
         {
             "id": "30-71167247-4",
@@ -555,7 +558,7 @@ export class SorteoComponent {
         {
             "id": "20-33228659-6",
             "tipo": "3",
-            "nombre": "TRAVIESAS FRANCO, GERMAN ALEXIS FIDEL"
+            "nombre": "TRAVIESAS, F. GERMAN ALEXIS F:"
         },
         {
             "id": "20-10407792-8",
@@ -570,7 +573,7 @@ export class SorteoComponent {
         {
             "id": "23-20342074-9",
             "tipo": "3",
-            "nombre": "VERBECK, CARLOS RODOLFO ENRIQ"
+            "nombre": "VERBECK, CARLOS RODOLFO E."
         },
         {
             "id": "30-71532772-0",
@@ -589,9 +592,33 @@ export class SorteoComponent {
         }
     ];
 
+
+
+
+
+
+    premioMostrar: any = ''
+    
+    sorteActual: any = 0
+
+    mostrando: any = true
+    mostrarPapeles: any = false
+
+    fondoGanador: any = 'rgb(47, 255, 0)'
+
+    mostrarDiv: boolean = false
+
+    papers: { color: string, left: string }[] = [];
+
+    db: any = {}
+
+
+    ganadores:any = []
+
     constructor(private cs: ComunicacionService) { }
 
     ngOnInit() {
+        this.premioMostrar = this.premios[0]
         this.verificaSorteo()
     }
 
@@ -638,15 +665,15 @@ export class SorteoComponent {
         this.mostrando = false
 
         var id_sorteo: any = this.tiposDeSorteoRealizar[this.sorteActual] ? this.tiposDeSorteoRealizar[this.sorteActual] : 1
-        this.sorteActual++
-
+        
         var cupos: any = this.clientes.filter((e: any) => { return e.tipo == id_sorteo })
-
+        
         var cupo_ganador = cupos[Math.floor(cupos.length * Math.random())]
         console.log(cupo_ganador)
-
-        this.vueltas = this.vueltasIniciales + (this.clientes.length - (this.selector % this.clientes.length)) + this.clientes.indexOf(cupo_ganador)
-
+        
+        this.vueltas = this.vueltasIniciales + (this.clientes.length - (this.selector % this.clientes.length)) + this.clientes.indexOf(cupo_ganador) - this.sorteActual
+        
+        this.sorteActual++
         this.girar()
     }
 
@@ -675,6 +702,7 @@ export class SorteoComponent {
         this.papelitos()
 
         this.fondoGanador = 'red'
+
         setTimeout(() => {
             this.fondoGanador = 'rgb(47, 255, 0)'
         }, 300)
@@ -690,11 +718,39 @@ export class SorteoComponent {
         setTimeout(() => {
             this.fondoGanador = 'rgb(47, 255, 0)'
         }, 1500)
+        setTimeout(() => {
+            this.fondoGanador = 'red'
+        }, 1800)
+        setTimeout(() => {
+            this.fondoGanador = 'rgb(47, 255, 0)'
+        }, 2100)
+        setTimeout(() => {
+            this.fondoGanador = 'red'
+        }, 2400)
+        setTimeout(() => {
+            this.fondoGanador = 'rgb(47, 255, 0)'
+        }, 2700)
+        setTimeout(() => {
+            this.fondoGanador = 'red'
+        }, 3000)
+        setTimeout(() => {
+            this.fondoGanador = 'rgb(47, 255, 0)'
+        }, 3300)
 
         setTimeout(() => { this.mostrarPapeles = false }, 5000)
 
         setTimeout(() => {
-            this.clientes.splice(this.selector, 1);
+            let ganador:any = this.clientes[this.selector % this.clientes.length]
+            ganador.premio = this.premios[this.sorteActual - 1] ? this.premios[this.sorteActual - 1] : ''
+
+            this.premioMostrar = this.premios[this.sorteActual] ? this.premios[this.sorteActual] : ''
+
+            this.ganadores.push(ganador)
+
+            this.clientes.splice(this.selector % this.clientes.length, 1);
+
+            this.mostrar(true)
+
         }, 7000)
     }
 

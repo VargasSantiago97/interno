@@ -1,4 +1,3 @@
-
 <div class="containerr" *ngIf="mostrarPapeles">
     <div class="paper" *ngFor="let paper of papers" [style.backgroundColor]="paper.color"
         [ngStyle]="{left: paper.left}"></div>
@@ -6,59 +5,57 @@
 
 
 <div class="contenedor p-5">
+    <div class="row">
+        <div class="col-2">
+            <h6 *ngIf="ganadores.length" style="text-align: center;">Ganadores:</h6>
+            <ol class="list-group list-group-numbered">
+                <li class="list-group-item d-flex justify-content-between align-items-start" *ngFor="let ganador of ganadores">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">{{ganador.nombre}}</div>
+                        {{ganador.premio}}
+                    </div>
+                </li>
+            </ol>
+        </div>
+        <div class="col-10">
+            <div class="row" *ngIf="premioMostrar != ''">
+                <div class="col">
+                    <h4 style="text-align: center; color: #424242;">SIGUIENTE PREMIO: {{premioMostrar}}</h4>
+                </div>
+            </div>
+            <div>
+                <h3 class="otro" style="opacity: 0.2;">{{dato(selector-5)}}</h3>
+                <h3 class="otro" style="opacity: 0.4;">{{dato(selector-4)}}</h3>
 
-    <div>
-        <h3 class="otro" style="opacity: 0.2;">{{dato(selector-5)}}</h3>
-        <h3 class="otro" style="opacity: 0.4;">{{dato(selector-4)}}</h3>
+                <h3 class="otro" style="opacity: 0.6;">{{dato(selector-3)}}</h3>
+                <h3 class="otro" style="opacity: 0.8;">{{dato(selector-2)}}</h3>
 
-        <h3 class="otro" style="opacity: 0.6;">{{dato(selector-3)}}</h3>
-        <h3 class="otro" style="opacity: 0.8;">{{dato(selector-2)}}</h3>
+                <h3 class="pegado">{{dato(selector-1)}}</h3>
 
-        <h3 class="pegado">{{dato(selector-1)}}</h3>
+                <h1 class="seleccionado" [ngStyle]="{backgroundColor: fondoGanador, }">
+                    <strong>{{dato(selector)}}</strong>
+                </h1>
 
-        <h1 class="seleccionado" [ngStyle]="{backgroundColor: fondoGanador, }"><strong>{{dato(selector)}}</strong></h1>
+                <h3 class="pegado">{{dato(selector+1)}}</h3>
 
-        <h3 class="pegado">{{dato(selector+1)}}</h3>
+                <h3 class="otro" style="opacity: 0.8;">{{dato(selector+2)}}</h3>
+                <h3 class="otro" style="opacity: 0.6;">{{dato(selector+3)}}</h3>
 
-        <h3 class="otro" style="opacity: 0.8;">{{dato(selector+2)}}</h3>
-        <h3 class="otro" style="opacity: 0.6;">{{dato(selector+3)}}</h3>
-
-        <h3 class="otro" style="opacity: 0.4;">{{dato(selector+4)}}</h3>
-        <h3 class="otro" style="opacity: 0.2;">{{dato(selector+5)}}</h3>
+                <h3 class="otro" style="opacity: 0.4;">{{dato(selector+4)}}</h3>
+                <h3 class="otro" style="opacity: 0.2;">{{dato(selector+5)}}</h3>
+            </div>
+        </div>
     </div>
-
 
     <br><br><br>
 
-    <div>
+    <div style="text-align: center;">
         <button type="button" class="btn btn-primary mx-1" (click)="sortear()">SORTEAR</button>
+
+        <!--
         <button type="button" class="btn btn-secondary mx-1" (click)="mostrar(true)">MOSTRAR</button>
         <button type="button" class="btn btn-secondary mx-1" (click)="papelitos()">PAPELES</button>
         <button type="button" class="btn btn-danger mx-1" (click)="mostrarPapeles = false">PARA PAPELES</button>
-    </div>
-
-
-</div>
-
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Launch demo modal
-</button>
-
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
+        -->
     </div>
 </div>
