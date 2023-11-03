@@ -26,6 +26,12 @@ export class ComunicacionService {
         var sent = 'SELECT * FROM ' + tabla
         return this.http.post(`${this.API_URI}/index.php`, { sentencia: sent });
     }
+
+
+    padron(consulta: any) {
+        return this.http.get(`http://norteyagua.online/api/afip/api/padron.php?documento=${consulta}`);
+    }
+
     createDBServer(tabla: any, data: any) {
         var sent = 'INSERT INTO ' + tabla + ' ('
         sent += this.formatoColumnas[tabla].join(', ')

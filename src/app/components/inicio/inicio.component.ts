@@ -12,139 +12,391 @@ export class InicioComponent {
     columns: any = []
     dataTabla: any = []
 
-    movimientos: any = []
-
     db: any = {}
-    db_local: any = {}
-    cargador: any = 0
-    totalCargador: any = 0
+
+    datos: any = [
+        {
+            cuit: 30708503335
+        },
+        {
+            cuit: 33716222719
+        },
+        {
+            cuit: 33707998429
+        },
+        {
+            cuit: 30715207369
+        },
+        {
+            cuit: 30717485323
+        },
+        {
+            cuit: 20174832251
+        },
+        {
+            cuit: 20350592971
+        },
+        {
+            cuit: 20347935140
+        },
+        {
+            cuit: 20079053644
+        },
+        {
+            cuit: 30711883548
+        },
+        {
+            cuit: 20104306986
+        },
+        {
+            cuit: 20133503278
+        },
+        {
+            cuit: 20344230952
+        },
+        {
+            cuit: 23205521909
+        },
+        {
+            cuit: 30714635359
+        },
+        {
+            cuit: 20147992654
+        },
+        {
+            cuit: 20309492375
+        },
+        {
+            cuit: 20271999861
+        },
+        {
+            cuit: 23127934029
+        },
+        {
+            cuit: 20305702383
+        },
+        {
+            cuit: 30709558389
+        },
+        {
+            cuit: 30711528268
+        },
+        {
+            cuit: 20132167428
+        },
+        {
+            cuit: 20080082666
+        },
+        {
+            cuit: 30668962277
+        },
+        {
+            cuit: 33708394659
+        },
+        {
+            cuit: 30709535443
+        },
+        {
+            cuit: 30711672474
+        },
+        {
+            cuit: 20274045311
+        },
+        {
+            cuit: 23242592689
+        },
+        {
+            cuit: 30508358942
+        },
+        {
+            cuit: 30711358184
+        },
+        {
+            cuit: 23167760929
+        },
+        {
+            cuit: 20236840442
+        },
+        {
+            cuit: 20264036861
+        },
+        {
+            cuit: 27341768387
+        },
+        {
+            cuit: 20125552634
+        },
+        {
+            cuit: 20344230952
+        },
+        {
+            cuit: 20137031699
+        },
+        {
+            cuit: 30714224340
+        },
+        {
+            cuit: 30715893122
+        },
+        {
+            cuit: 20245766972
+        },
+        {
+            cuit: 30710742908
+        },
+        {
+            cuit: 30710195796
+        },
+        {
+            cuit: 27324739993
+        },
+        {
+            cuit: 24401738017
+        },
+        {
+            cuit: 20138714129
+        },
+        {
+            cuit: 30710537557
+        },
+        {
+            cuit: 20251324744
+        },
+        {
+            cuit: 30716098482
+        },
+        {
+            cuit: 20177626539
+        },
+        {
+            cuit: 23056702369
+        },
+        {
+            cuit: 20410391636
+        },
+        {
+            cuit: 20300969179
+        },
+        {
+            cuit: 20227499673
+        },
+        {
+            cuit: 20079299465
+        },
+        {
+            cuit: 20252291297
+        },
+        {
+            cuit: 20267197084
+        },
+        {
+            cuit: 20310980359
+        },
+        {
+            cuit: 30706135088
+        },
+        {
+            cuit: 33707456219
+        },
+        {
+            cuit: 30711340781
+        },
+        {
+            cuit: 20103666768
+        },
+        {
+            cuit: 20223566600
+        },
+        {
+            cuit: 20218493107
+        },
+        {
+            cuit: 20213958624
+        },
+        {
+            cuit: 30711566771
+        },
+        {
+            cuit: 33710417089
+        },
+        {
+            cuit: 30717290220
+        },
+        {
+            cuit: 30717208834
+        },
+        {
+            cuit: 20166909199
+        },
+        {
+            cuit: 20141404181
+        },
+        {
+            cuit: 30670117770
+        },
+        {
+            cuit: 30710534701
+        },
+        {
+            cuit: 20085341856
+        },
+        {
+            cuit: 30657585757
+        },
+        {
+            cuit: 20178512456
+        },
+        {
+            cuit: 20218307281
+        },
+        {
+            cuit: 20211753049
+        },
+        {
+            cuit: 23232829249
+        },
+        {
+            cuit: 20123651368
+        },
+        {
+            cuit: 30717083446
+        },
+        {
+            cuit: 20064448634
+        },
+        {
+            cuit: 20245473002
+        },
+        {
+            cuit: 27317310019
+        },
+        {
+            cuit: 20314879725
+        },
+        {
+            cuit: 30711692866
+        },
+        {
+            cuit: 30708630272
+        },
+        {
+            cuit: 30708310693
+        },
+        {
+            cuit: 20365065250
+        },
+        {
+            cuit: 27206032613
+        },
+        {
+            cuit: 20163395526
+        },
+        {
+            cuit: 30696748191
+        },
+        {
+            cuit: 20283946488
+        },
+        {
+            cuit: 20129709627
+        },
+        {
+            cuit: 20142246970
+        },
+        {
+            cuit: 20240793629
+        },
+        {
+            cuit: 20161423808
+        },
+        {
+            cuit: 20122617212
+        },
+        {
+            cuit: 20121693489
+        },
+        {
+            cuit: 20173735112
+        },
+        {
+            cuit: 20168171499
+        },
+        {
+            cuit: 20177304760
+        },
+        {
+            cuit: 20131797266
+        },
+        {
+            cuit: 30714440892
+        },
+        {
+            cuit: 20332286596
+        },
+        {
+            cuit: 20104077928
+        },
+        {
+            cuit: 20230855936
+        },
+        {
+            cuit: 23203420749
+        },
+        {
+            cuit: 30715327720
+        },
+        {
+            cuit: 20257369235
+        },
+        {
+            cuit: 30717543307
+        }
+    ]
+
+    actualizando: any = 0
+
 
     constructor(
-        private cs: ComunicacionService,
-        private sqlite: SqliteService
+        private cs: ComunicacionService
     ) { }
 
     ngOnInit() {
         this.columns = [
-            { header: 'ID', field: 'id_movimiento' },
-            { header: 'Cult.', field: 'cultivo' },
-            { header: 'Est.', field: 'establecimiento' },
-            { header: 'De', field: 'desde' },
-
-            { header: 'ORDEN', field: 'nro_orden' },
-            { header: 'CTG', field: 'nro_ctg' },
-
-            { header: 'KG CAMPO', field: 'kg_campo' },
-            { header: 'KG BAL', field: 'kg_balanza' },
-            { header: 'KG REG', field: 'kg_regulacion' },
-            { header: 'KG NETO', field: 'kg_neto' },
-            { header: 'KG ACOND.', field: 'kg_acondicionados' },
-            { header: 'KG DESTINO', field: 'kg_destino' },
-            { header: 'KG MERM', field: 'kg_mermas' },
-            { header: 'KG FINAL', field: 'kg_final' },
-
-            { header: 'RETIRA', field: 'retira' },
-            { header: 'ENTREGA', field: 'entrega' },
-            { header: 'DESTINO', field: 'destino' },
-
-            { header: 'CTG DEST', field: 'nro_ctg_dest' },
-            { header: 'CONTRATO', field: 'contrato' },
-            { header: 'APLIC.', field: 'aplicacion' },
+            { header: 'CUIT', field: 'cuit' },
+            { header: 'Razon Social', field: 'razon_social' },
+            { header: 'Nueva Razon', field: 'nueva_razon' },
+            { header: 'Codigo', field: 'codigo' },
         ]
 
-        this.totalCargador = 8
-
-        this.getDB('banderas', () => { this.cargador++ })
-        this.getDB('movimientos', () => { this.cargador++ })
-        this.getDB('establecimientos', () => { this.cargador++ })
-        this.getDB('granos', () => { this.cargador++ })
-        this.getDB('orden_carga', () => { this.cargador++ })
-        this.getDB('socios', () => { this.cargador++ })
-        this.getDB('carta_porte', () => { this.cargador++ })
-
-        this.getSqlite('movimiento_contrato', () => { this.cargador++ })
-
-    }
-
-    generarDataTabla() {
-        this.dataTabla = []
-
-        this.movimientos.forEach((mov: any) => {
-            var dato = {
-                id_movimiento: mov.id,
-                cultivo: this.transformar(mov.id_grano, 'grano'),
-                establecimiento: this.transformar(mov.id_origen, 'establecimiento'),
-                desde: mov.tipo_origen,
-
-                nro_orden: this.transformar(mov.id, 'nro_orden'),
-                nro_ctg: this.transformar(mov.id, 'nro_ctg'),
-
-                kg_campo: mov.kg_campo,
-                kg_balanza: mov.kg_neto,
-                kg_regulacion: mov.kg_regulacion,
-                kg_neto: mov.kg_neto_final,
-
-                kg_acondicionados: 0,
-                kg_destino: 0,
-                kg_mermas: 0,
-                kg_final: 0,
-
-                retira: '',
-                entrega: '',
-                destino: '',
-
-                nro_ctg_dest: '',
-                contrato: '',
-                aplicacion: 0,
-            }
-
-            dato.contrato = this.db_local['movimiento_contrato'].some((e:any) => { return e.id_movimiento == mov.id }) ? this.db_local['movimiento_contrato'].find((e:any) => { return e.id_movimiento == mov.id }).id_contrato : ''
-
-            dato.aplicacion = this.db_local['movimiento_contrato'].filter((e:any) => { return e.id_movimiento == mov.id }).reduce((acc:any, curr:any) => { return acc + parseInt(curr.kilos) }, 0)
-            /* 
-            CREATE TABLE "datos" (
-                "id"	TEXT,
-                "id_movimiento"	TEXT,
-                "kg_acondicionados" INTEGER,
-                "kg_destino"	INTEGER,
-                "kg_mermas"	INTEGER,
-                "kg_final"	INTEGER,
-                "retira"	TEXT,
-                "entrega"	TEXT,
-                "destino"	TEXT,
-            ) */
-
-
-
-
-
-
-            this.dataTabla.push(dato)
-        });
     }
 
     ejecutar() {
+        if(this.actualizando < this.datos.length){
+            this.cs.padron(this.datos[this.actualizando].cuit).subscribe(
+                (res:any) => {
+                    console.log(res)
 
-    }
+                    if(res.tipoPersona == "JURIDICA"){
+                        this.datos[this.actualizando].razon_social = res.razonSocial
+                    } else {
+                        this.datos[this.actualizando].razon_social = res.apellido + ', ' + res.nombre
+                    }
 
-    getDB(tabla: any, fn: any = false) {
 
-    }
 
-    getSqlite(tabla: any, fn: any = false) {
-        this.sqlite.getDB(tabla).subscribe(
-            (res: any) => {
-                this.db_local[tabla] = res
-
-                if (fn) {
-                    fn()
+                    this.actualizando++
+                    this.ejecutar()
+                },
+                err => {
+                    console.log(err)
+                    alert('error')
                 }
-            },
-            (err: any) => {
-                console.error(err)
-            }
-        )
+            )
+        } else {
+            alert('Fin')
+        }
     }
+
 
     transformar(dato: any, tipo: any) {
         if (tipo == 'establecimiento') {
@@ -202,32 +454,3 @@ export class InicioComponent {
     }
 }
 
-/*
-estado: "1"
-fecha: "2023-04-25 00:00:00"
-id: "39adc393652c"
-id_acopio: "bf713ffb707d"
-id_bandera: "[\"3a2b44f8a3b2\"]"
-id_camion: "416d41386c55"
-id_campana: "0f3805fd027b"
-id_chofer: "29e3a226ac94"
-id_corredor: "a98475e4664e"
-id_deposito: "820432e06a30"
-id_grano: "d81473ae9754"
-id_origen: "81f01651370e"
-id_socio: "141ea05753ff"
-id_transporte: "274c2067e4c1"
-kg_bruto: "52540"
-kg_campo: "36530"
-kg_neto: "36900"
-kg_neto_final: "36580"
-kg_regulacion: "-320"
-kg_tara: "15640"
-observaciones: "Destino 36.360\nHumedad 15.6%"
-tipo_origen: "T"
-
-id: "a9318f4030ec"
-id_contrato: "d7e18ffc1ab2"
-id_movimiento: "39adc393652c"
-kilos: "35000"
-*/

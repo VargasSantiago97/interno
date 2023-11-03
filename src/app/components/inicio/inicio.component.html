@@ -1,8 +1,4 @@
-<div *ngIf="cargador != totalCargador">
-    <br>
-    Espere...
-    <br>
-</div>
+
 
 <button (click)="ejecutar()">CLICK</button>
 
@@ -13,7 +9,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let data of dataTabla">
+        <tr *ngFor="let data of datos">
             <td *ngFor="let col of columns">{{data[col.field]}}</td>
         </tr>
     </tbody>
