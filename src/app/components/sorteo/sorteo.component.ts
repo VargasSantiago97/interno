@@ -10,22 +10,32 @@ export class SorteoComponent {
     selector: any = 0
     vuelta: any = 0
     vueltas: any = 0
-    vueltasIniciales: any = 112
+    vueltasIniciales: any = 111
 
-    //1: clientes importarten, 3: clientes menos importantes
-    tiposDeSorteoRealizar: any = [3, 3, 3, 2, 2, 2, 1, 1, 1]
+    elegidos: any = [
+        "20-34423095-2",
+        "23-16776092-9",
+        "30-70955838-9",
+        "20-08008266-6",
+        "20-24547300-2",
+        "33-70745621-9",
+        "20-17762653-9",
+        "30-70613508-8",
+        "30-71053755-7",
+        "30-71156677-1"
+    ]
     
     premios: any = [
-        'premio 1',
-        'premio 2',
-        'premio 3',
-        'premio 4',
-        'premio 5',
-        'premio 6',
-        'premio 7',
-        'premio 8',
-        'premio 9',
-        'premio 10',
+        'EQUIPO VITRAN',
+        'EQUIPO VITRAN',
+        'TELEVISOR',
+        'TELEVISOR',
+        'MOTO',
+        'VIAJE: BRASIL - JACTO',
+        'VIAJE: BRASIL - JACTO',
+        'VIAJE: CARIBE - SIGMA',
+        'VIAJE: CARIBE - APACHE',
+        'VIAJE: E.E.U.U. - SPRAYTEC'
     ]
 
 
@@ -49,11 +59,6 @@ export class SorteoComponent {
             "id": "30-71520736-9",
             "tipo": "3",
             "nombre": "AGROGANADERA MARTIN HERMANOS S.A."
-        },
-        {
-            "id": "30-71748532-3",
-            "tipo": "1",
-            "nombre": "AGROPECUARIA DON RINO S. R. L."
         },
         {
             "id": "20-17483225-1",
@@ -598,6 +603,8 @@ export class SorteoComponent {
 
 
     premioMostrar: any = ''
+
+    permiteSortear: any = true
     
     sorteActual: any = 0
 
@@ -662,11 +669,14 @@ export class SorteoComponent {
     }
 
     sortear() {
-        this.mostrando = false
+        if(!this.permiteSortear){
+            return
+        }
 
-        var id_sorteo: any = this.tiposDeSorteoRealizar[this.sorteActual] ? this.tiposDeSorteoRealizar[this.sorteActual] : 1
-        
-        var cupos: any = this.clientes.filter((e: any) => { return e.tipo == id_sorteo })
+        this.mostrando = false
+        this.permiteSortear = false
+
+        var cupos: any = this.clientes.filter((e: any) => { return e.id == this.elegidos[this.sorteActual] })
         
         var cupo_ganador = cupos[Math.floor(cupos.length * Math.random())]
         console.log(cupo_ganador)
@@ -749,6 +759,7 @@ export class SorteoComponent {
 
             this.clientes.splice(this.selector % this.clientes.length, 1);
 
+            this.permiteSortear = true
             this.mostrar(true)
 
         }, 7000)
