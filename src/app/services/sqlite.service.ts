@@ -27,8 +27,8 @@ export class SqliteService {
   ){}
 
   //Consultas a DB
-  getDB(tabla: any) {
-      return this.http.get(`${this.API_URI}/sqlite.php?tabla=${tabla}`);
+  getDBServer(tabla: any) {
+      return this.http.get(`${this.API_URI}/sqliteInterno.php?tabla=${tabla}`);
   }
   createDB(tabla:any, data: any) {
       var sent = 'INSERT INTO "' + tabla + '" ('
@@ -43,7 +43,7 @@ export class SqliteService {
 
       sent = sent.slice(0, -3) + ')'
 
-      return this.http.post(`${this.API_URI}/sqlite.php`, {sentencia: sent});
+      return this.http.post(`${this.API_URI}/sqliteInterno.php`, {sentencia: sent});
   }
   updateDB(tabla:any, data: any) {
       var sent = 'UPDATE "' + tabla + '" SET '
@@ -56,11 +56,40 @@ export class SqliteService {
       sent = sent.slice(0, -2)
       sent += ' WHERE id = "' + data.id + '"'
 
-      return this.http.put(`${this.API_URI}/sqlite.php`, {sentencia: sent});
+      return this.http.put(`${this.API_URI}/sqliteInterno.php`, {sentencia: sent});
   }
   deleteDB(tabla:any, idd: any) {
       const sent = 'DELETE FROM "' + tabla + '" WHERE id = "' + idd + '"'
-      return this.http.delete(`${this.API_URI}/sqlite.php`, {body: {sentencia:sent}} );
+      return this.http.delete(`${this.API_URI}/sqliteInterno.php`, {body: {sentencia:sent}} );
   }
 
+
+  getDB(tabla: any, datosGuardar: any, fn: any = false) {
+    this.getDBServer(tabla).subscribe(
+        (res: any) => {
+            if (res.ok) {
+                res.data.forEach((e: any) => {
+                    if (e.datos) {
+                        var datos = {}
+                        try {
+                            datos = JSON.parse(e.datos);
+                        } catch {
+                            datos = {}
+                        }
+                        e.datos = datos
+                    }
+                });
+
+                datosGuardar[tabla] = res.data
+
+                if (fn) {
+                    fn()
+                }
+            }
+        },
+        (err: any) => {
+            console.error(err)
+        }
+    )
+}
 }

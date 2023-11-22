@@ -19,7 +19,8 @@ export class InicioComponent {
     index:any = 0
 
     constructor(
-        private cs: ComunicacionService
+        private cs: ComunicacionService,
+        private sqlite: SqliteService
     ) { }
 
     ngOnInit() {
@@ -29,6 +30,12 @@ export class InicioComponent {
             { header: 'Nueva Razon', field: 'nueva_razon' },
             { header: 'Codigo', field: 'codigo' },
         ]
+
+
+        this.sqlite.getDB('movimientos', this.db, () => {
+            console.log('ss')
+            console.log(this.db)
+        })
 
     }
 
