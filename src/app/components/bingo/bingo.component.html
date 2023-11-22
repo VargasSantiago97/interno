@@ -1,0 +1,18 @@
+<div *ngFor="let carton of cartones">
+    <div class="carton">
+        <p>
+            <strong>Primer Premio: ASDASASDASDASDASDSA</strong>
+        </p>
+        <div class="row" *ngFor="let row of rows">
+            <div *ngFor="let col of cols" class="col" style="padding: 5px;">
+                <div class="cuadro">
+                    <div *ngIf="carton[row][col] != ''">{{carton[row][col]}}</div>
+                    <div *ngIf="carton[row][col] == ''">
+                        <img src="https://cdn-icons-png.flaticon.com/256/11846/11846879.png" alt="" style="width: 90px; margin-bottom: 10px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p style="text-align: right;">Cód. Carton: 00158526</p>
+    </div>
+</div>

@@ -16,6 +16,7 @@ export class InicioComponent {
 
     actualizando: any = 0
 
+    index:any = 0
 
     constructor(
         private cs: ComunicacionService
@@ -31,15 +32,20 @@ export class InicioComponent {
 
     }
 
-    ejecutar(){
-        this.dataTabla.push(
-            {
-                cuit: 1,
-                razon_social: 'asd',
-                nueva_razon: 651551,
-                codigo: "65165,51"
-            }
-        )
+    ejecutar() {
+        for (let index = this.index; index < this.index+10; index++) {
+            this.dataTabla.push(
+                {
+                    cuit: index,
+                    razon_social: 'asd',
+                    nueva_razon: 651551,
+                    codigo: "65165,51",
+                    rows: 3,
+                    cuits: [1, 2, 3]
+                }
+            )
+        }
+        this.index+=10
     }
 
 

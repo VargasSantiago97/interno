@@ -8,12 +8,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { SorteoComponent } from './components/sorteo/sorteo.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BingoComponent } from './components/bingo/bingo.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     InicioComponent,
-    SorteoComponent
+    SorteoComponent,
+    BingoComponent
   ],
   imports: [
     BrowserModule,
