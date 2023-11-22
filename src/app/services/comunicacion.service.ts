@@ -23,8 +23,7 @@ export class ComunicacionService {
         return this.http.post(`${this.API_URI}/index.php`, { sentencia: consulta });
     }
     getDBServer(tabla: any) {
-        var sent = 'SELECT * FROM ' + tabla
-        return this.http.post(`${this.API_URI}/index.php`, { sentencia: sent });
+        return this.http.get(`${this.API_URI}/index.php?op=getAll&tabla=${tabla}`);
     }
 
 
@@ -40,7 +39,7 @@ export class ComunicacionService {
         this.formatoColumnas[tabla].forEach((e: any) => {
             var sumar = data[e] ? (data[e].toString() ? data[e].toString() : '') : ''
 
-            if(e=='datos'){
+            if (e == 'datos') {
                 try {
                     sumar = JSON.stringify(data[e]);
                 } catch {
@@ -67,7 +66,7 @@ export class ComunicacionService {
 
             var datoAgregar = data[this.formatoColumnas[tabla][i]]
 
-            if(this.formatoColumnas[tabla][i]=='datos'){
+            if (this.formatoColumnas[tabla][i] == 'datos') {
                 try {
                     datoAgregar = JSON.stringify(datoAgregar);
                 } catch {
@@ -102,31 +101,22 @@ export class ComunicacionService {
     getDB(tabla: any, datosGuardar: any, fn: any = false) {
         this.getDBServer(tabla).subscribe(
             (res: any) => {
-                if (res.ok) {
-                    res.data.forEach((e: any) => {
-                        if (e.datos) {
-                            var datos = {}
-                            try {
-                                datos = JSON.parse(e.datos);
-                            } catch {
-                                datos = {}
-                            }
-                            e.datos = datos
+                res.forEach((e: any) => {
+                    if (e.datos) {
+                        var datos = {}
+                        try {
+                            datos = JSON.parse(e.datos);
+                        } catch {
+                            datos = {}
                         }
-                    });
-
-                    datosGuardar[tabla] = res.data
-
-                    if (fn) {
-                        fn()
+                        e.datos = datos
                     }
-                } else {
-                    console.log(res)
-                    if(res.cerrar){
-                        setTimeout(() => {
-                            window.location.reload();
-                        }, 2000);
-                    }
+                });
+
+                datosGuardar[tabla] = res
+
+                if (fn) {
+                    fn()
                 }
             },
             (err: any) => {
@@ -201,6 +191,6 @@ export class ComunicacionService {
             }
         )
     }
-    
+
 
 }

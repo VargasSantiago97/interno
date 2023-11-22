@@ -67,25 +67,24 @@ export class SqliteService {
   getDB(tabla: any, datosGuardar: any, fn: any = false) {
     this.getDBServer(tabla).subscribe(
         (res: any) => {
-            if (res.ok) {
-                res.data.forEach((e: any) => {
-                    if (e.datos) {
-                        var datos = {}
-                        try {
-                            datos = JSON.parse(e.datos);
-                        } catch {
-                            datos = {}
-                        }
-                        e.datos = datos
+            res.forEach((e: any) => {
+                if (e.datos) {
+                    var datos = {}
+                    try {
+                        datos = JSON.parse(e.datos);
+                    } catch {
+                        datos = {}
                     }
-                });
-
-                datosGuardar[tabla] = res.data
-
-                if (fn) {
-                    fn()
+                    e.datos = datos
                 }
+            });
+
+            datosGuardar[tabla] = res
+
+            if (fn) {
+                fn()
             }
+
         },
         (err: any) => {
             console.error(err)

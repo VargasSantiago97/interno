@@ -3,12 +3,20 @@
 <table id="miTabla">
     <thead>
         <tr>
-            <th *ngFor="let col of columns">{{col.header}}</th>
+            <th *ngFor="let col of columns" style="text-align: center;">{{col.header}}</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let data of dataTabla">
-            <td *ngFor="let col of columns">{{data[col.field]}}</td>
+            <td *ngFor="let col of columns">
+                <div *ngIf="col.field != 'ok_origen' && col.field != 'ok_destino' && col.field != 'ok_contrato'">
+                    {{data[col.field]}}
+                </div>
+
+                <div *ngIf="col.field == 'ok_origen' || col.field == 'ok_destino' || col.field == 'ok_contrato'" class="{{data[col.field] == 'OK' ? 'verde' : 'rojo'}}">
+                    {{data[col.field]}}
+                </div>
+            </td>
         </tr>
     </tbody>
 </table>

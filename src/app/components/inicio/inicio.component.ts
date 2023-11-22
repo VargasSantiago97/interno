@@ -14,10 +14,6 @@ export class InicioComponent {
 
     db: any = {}
 
-    actualizando: any = 0
-
-    index:any = 0
-
     constructor(
         private cs: ComunicacionService,
         private sqlite: SqliteService
@@ -25,34 +21,121 @@ export class InicioComponent {
 
     ngOnInit() {
         this.columns = [
-            { header: 'CUIT', field: 'cuit' },
-            { header: 'Razon Social', field: 'razon_social' },
-            { header: 'Nueva Razon', field: 'nueva_razon' },
-            { header: 'Codigo', field: 'codigo' },
+            { header: 'ORIG', field: 'ok_origen' },
+            { header: 'ID', field: 'id' },
+            { header: 'Tipo', field: 'tipo' },
+            { header: 'O', field: 'tipo_origen' },
+            { header: 'Fecha', field: 'fecha' },
+            { header: 'Cultivo', field: 'cultivo' },
+            { header: 'Prod.', field: 'produce' },
+            { header: 'Est', field: 'establecimiento' },
+            { header: 'campo', field: 'kg_campo' },
+            { header: 'Bruto', field: 'kg_bruto' },
+            { header: 'Tara', field: 'kg_tara' },
+            { header: 'Neto', field: 'kg_neto' },
+            { header: 'Reg', field: 'kg_regulacion' },
+            { header: 'Sal. Bal.', field: 'kg_neto_final_salida' },
+            { header: 'Dep.', field: 'deposito' },
+            { header: 'Acond.', field: 'kg_acondicionadora' },
+            { header: 'Destino', field: 'kg_destino' },
+            { header: 'DEST', field: 'ok_destino' },
+            { header: 'Mermas', field: 'kg_mermas' },
+            { header: 'Final', field: 'kg_final' },
+            { header: 'Comp.', field: 'kg_computados' },
+            { header: 'Pat Ch.', field: 'patente_chasis' },
+            { header: 'Pat Ac.', field: 'patente_acoplado' },
+            { header: 'CTG Origen', field: 'ctg_origen' },
+            { header: 'CTG Destino', field: 'ctg_destino' },
+            { header: 'Retira', field: 'retira' },
+            { header: 'Entrega', field: 'entrega' },
+            { header: 'Destino', field: 'destino' },
+            { header: 'Contrato', field: 'contrato' },
+            { header: 'Precio', field: 'precio' },
+            { header: 'CONT', field: 'ok_contrato' },
         ]
 
-
+        /*
         this.sqlite.getDB('movimientos', this.db, () => {
-            console.log('ss')
+            console.log(this.db)
+        })
+        */
+
+        this.cs.getDB('banderas', this.db, () => {})
+        this.cs.getDB('camiones', this.db, () => {})
+        this.cs.getDB('intervinientes', this.db, () => {})
+        this.cs.getDB('depositos', this.db, () => {})
+        this.cs.getDB('granos', this.db, () => {})
+        this.cs.getDB('establecimientos', this.db, () => {})
+        this.cs.getDB('socios', this.db, () => {})
+        this.cs.getDB('transportistas', this.db, () => {})
+        this.cs.getDB('carta_porte', this.db, () => {})
+
+
+        this.cs.getDB('movimientos', this.db, () => {
             console.log(this.db)
         })
 
     }
 
     ejecutar() {
-        for (let index = this.index; index < this.index+10; index++) {
-            this.dataTabla.push(
-                {
-                    cuit: index,
-                    razon_social: 'asd',
-                    nueva_razon: 651551,
-                    codigo: "65165,51",
-                    rows: 3,
-                    cuits: [1, 2, 3]
+        this.dataTabla = []
+
+        this.db["movimientos"].forEach((movimiento: any) => {
+
+            //filtros
+            const fecha = new Date(movimiento.fecha)
+            const limite = new Date('2023-05-11')
+            const fechaFormato = `${fecha.getFullYear()}/${(fecha.getMonth()+1).toString().padStart(2, '0')}/${(fecha.getDate()).toString().padStart(2, '0')}`
+
+            if(fecha < limite){
+                var dato: any = {
+                    ok_origen: 'NO',
+                    ok_destino: 'OK',
+                    ok_contrato: 'OK',
+
+                    id: movimiento.id,
+
+                    tipo: '',
+                    fecha: fechaFormato,
+                    cultivo: this.transformar(movimiento.id_grano, 'grano'),
+                    establecimiento: this.transformar(movimiento.id_origen, 'establecimiento'),
+
+                    kg_campo: movimiento.kg_campo,
+                    kg_bruto: movimiento.kg_bruto,
+                    kg_tara: movimiento.kg_tara,
+                    kg_neto: movimiento.kg_neto,
+                    kg_regulacion: movimiento.kg_regulacion,
+                    kg_neto_final_salida: movimiento.kg_neto_final,
+
+                    patente_chasis: this.transformar(movimiento.id_camion, 'patente_chasis'),
+                    patente_acoplado: this.transformar(movimiento.id_camion, 'patente_acoplado'),
+
+                    deposito: this.transformar(movimiento.id_deposito, 'deposito'),
+
+                    kg_acondicionadora: '',
+                    kg_destino: '',
+                    kg_mermas: '',
+                    kg_final: '',
+                    kg_computados: '',
+
+                    tipo_origen: movimiento.tipo_origen,
+
+                    produce: this.transformar(movimiento.id_origen, 'produce'),
+                    ctg_origen: this.transformar(movimiento.id, 'nro_ctg'),
+                    ctg_destino: '',
+                    retira: '',
+                    entrega: '',
+                    destino: '',
+                    contrato: '',
+                    precio: '',
+
                 }
-            )
-        }
-        this.index+=10
+
+                
+
+                this.dataTabla.push(dato)
+            }
+        });
     }
 
 
@@ -60,12 +143,26 @@ export class InicioComponent {
         if (tipo == 'establecimiento') {
             return this.db['establecimientos'].some((e: any) => { return e.id == dato }) ? this.db['establecimientos'].find((e: any) => { return e.id == dato }).alias : dato
         }
+        if (tipo == 'produce') {
+            return this.db['establecimientos'].some((e: any) => { return e.id == dato }) ? this.db['establecimientos'].find((e: any) => { return e.id == dato }).codigo : dato
+        }
         else if (tipo == 'grano') {
             return this.db['granos'].some((e: any) => { return e.id == dato }) ? this.db['granos'].find((e: any) => { return e.id == dato }).alias : dato
+        }
+        else if (tipo == 'deposito') {
+            return this.db['depositos'].some((e: any) => { return e.id == dato }) ? this.db['depositos'].find((e: any) => { return e.id == dato }).alias : dato
         }
         else if (tipo == 'nro_orden') {
             return this.db['orden_carga'].some((e: any) => { return e.id_movimiento == dato }) ? this.db['orden_carga'].find((e: any) => { return e.id_movimiento == dato }).numero : ''
         }
+
+        else if (tipo == 'patente_chasis') {
+            return this.db['camiones'].some((e: any) => { return e.id == dato }) ? this.db['camiones'].find((e: any) => { return e.id == dato }).patente_chasis : ''
+        }
+        else if (tipo == 'patente_acoplado') {
+            return this.db['camiones'].some((e: any) => { return e.id == dato }) ? this.db['camiones'].find((e: any) => { return e.id == dato }).patente_acoplado : ''
+        }
+
 
         else if (tipo == 'nro_ctg') {
 
