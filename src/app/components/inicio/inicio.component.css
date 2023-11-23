@@ -33,8 +33,10 @@
 .verde {
     background-color: rgba(3, 157, 0, 0.733);
     color: #ffffff;
+    text-align: center;
 }
 .rojo {
     background-color: rgba(157, 0, 0, 0.733);
     color: #ffffff;
+    text-align: center;
 }

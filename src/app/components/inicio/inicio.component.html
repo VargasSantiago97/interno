@@ -1,4 +1,10 @@
-<button (click)="ejecutar()">CLICK</button>
+<div *ngIf="aCargar != cargados">
+    cargando...
+</div>
+
+<div *ngIf="aCargar == cargados">
+    <button (click)="ejecutar()">CLICK</button>
+</div>
 
 <table id="miTabla">
     <thead>

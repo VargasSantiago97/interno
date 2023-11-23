@@ -13,6 +13,10 @@ export class InicioComponent {
     dataTabla: any = []
 
     db: any = {}
+    dbLocal: any = {}
+
+    cargados: any = 0
+    aCargar: any = 0
 
     constructor(
         private cs: ComunicacionService,
@@ -48,6 +52,7 @@ export class InicioComponent {
             { header: 'CTG Destino', field: 'ctg_destino' },
             { header: 'Retira', field: 'retira' },
             { header: 'Entrega', field: 'entrega' },
+            { header: 'Acond.', field: 'acondicionadora' },
             { header: 'Destino', field: 'destino' },
             { header: 'Contrato', field: 'contrato' },
             { header: 'Precio', field: 'precio' },
@@ -60,21 +65,20 @@ export class InicioComponent {
         })
         */
 
-        this.cs.getDB('banderas', this.db, () => {})
-        this.cs.getDB('camiones', this.db, () => {})
-        this.cs.getDB('intervinientes', this.db, () => {})
-        this.cs.getDB('depositos', this.db, () => {})
-        this.cs.getDB('granos', this.db, () => {})
-        this.cs.getDB('establecimientos', this.db, () => {})
-        this.cs.getDB('socios', this.db, () => {})
-        this.cs.getDB('transportistas', this.db, () => {})
-        this.cs.getDB('carta_porte', this.db, () => {})
+        this.aCargar = 11
 
-
-        this.cs.getDB('movimientos', this.db, () => {
-            console.log(this.db)
-        })
-
+        this.cs.getDB('banderas', this.db, () => { this.cargados++ })
+        this.cs.getDB('camiones', this.db, () => { this.cargados++ })
+        this.cs.getDB('intervinientes', this.db, () => { this.cargados++ })
+        this.cs.getDB('depositos', this.db, () => { this.cargados++ })
+        this.cs.getDB('granos', this.db, () => { this.cargados++ })
+        this.cs.getDB('establecimientos', this.db, () => { this.cargados++ })
+        this.cs.getDB('socios', this.db, () => { this.cargados++ })
+        this.cs.getDB('transportistas', this.db, () => { this.cargados++ })
+        this.cs.getDB('carta_porte', this.db, () => { this.cargados++ })
+        this.cs.getDB('movimientos', this.db, () => { this.cargados++ })
+        
+        this.sqlite.getDB('datos_movimientos', this.dbLocal, () => { this.cargados++ })
     }
 
     ejecutar() {
@@ -88,14 +92,16 @@ export class InicioComponent {
             const fechaFormato = `${fecha.getFullYear()}/${(fecha.getMonth()+1).toString().padStart(2, '0')}/${(fecha.getDate()).toString().padStart(2, '0')}`
 
             if(fecha < limite){
+                var movimientoLocal:any = this.dbLocal['datos_movimientos'].find((e:any) => { return e.id_movimiento == movimiento.id });
+
                 var dato: any = {
-                    ok_origen: 'NO',
-                    ok_destino: 'OK',
-                    ok_contrato: 'OK',
+                    ok_origen: movimientoLocal ? movimientoLocal.ok_origen : '',
+                    ok_destino: movimientoLocal ? movimientoLocal.ok_destino : '',
+                    ok_contrato: movimientoLocal ? movimientoLocal.ok_contrato : '',
 
                     id: movimiento.id,
 
-                    tipo: '',
+                    tipo: movimientoLocal ? movimientoLocal.tipo : '',
                     fecha: fechaFormato,
                     cultivo: this.transformar(movimiento.id_grano, 'grano'),
                     establecimiento: this.transformar(movimiento.id_origen, 'establecimiento'),
@@ -112,26 +118,25 @@ export class InicioComponent {
 
                     deposito: this.transformar(movimiento.id_deposito, 'deposito'),
 
-                    kg_acondicionadora: '',
-                    kg_destino: '',
-                    kg_mermas: '',
-                    kg_final: '',
-                    kg_computados: '',
+                    kg_acondicionadora: movimientoLocal ? movimientoLocal.kg_acondicionadora : '',
+                    kg_destino: movimientoLocal ? movimientoLocal.kg_destino : '',
+                    kg_mermas: movimientoLocal ? movimientoLocal.kg_mermas : '',
+                    kg_final: movimientoLocal ? movimientoLocal.kg_final : '',
+                    kg_computados: movimientoLocal ? movimientoLocal.kg_computados : '',
 
                     tipo_origen: movimiento.tipo_origen,
 
                     produce: this.transformar(movimiento.id_origen, 'produce'),
                     ctg_origen: this.transformar(movimiento.id, 'nro_ctg'),
-                    ctg_destino: '',
-                    retira: '',
-                    entrega: '',
-                    destino: '',
-                    contrato: '',
-                    precio: '',
 
+                    ctg_destino: movimientoLocal ? movimientoLocal.ctg_destino : '',
+                    retira: movimientoLocal ? movimientoLocal.retira : '',
+                    entrega: movimientoLocal ? movimientoLocal.entrega : '',
+                    acondicionadora: movimientoLocal ? movimientoLocal.acondicionadora : '',
+                    destino: movimientoLocal ? movimientoLocal.destino : '',
+                    contrato: movimientoLocal ? movimientoLocal.contrato : '',
+                    precio: movimientoLocal ? movimientoLocal.precio : '',
                 }
-
-                
 
                 this.dataTabla.push(dato)
             }
@@ -208,4 +213,3 @@ export class InicioComponent {
         }
     }
 }
-
