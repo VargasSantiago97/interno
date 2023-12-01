@@ -3,7 +3,9 @@
 </div>
 
 <div *ngIf="aCargar == cargados">
-    <button (click)="ejecutar()">CLICK</button>
+    <button type="button" class="btn btn-primary btn-sm m-1" (click)="ejecutarCamiones()">CAMIONES</button>
+    <button type="button" class="btn btn-primary btn-sm m-1" (click)="ejecutarOrigen()">POR ORIGEN</button>
+    <button type="button" class="btn btn-primary btn-sm m-1" (click)="ejecutarCamiones()">POR DESTINO</button>
 </div>
 
 <table id="miTabla">
