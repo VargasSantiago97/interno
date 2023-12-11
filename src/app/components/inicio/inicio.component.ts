@@ -59,12 +59,6 @@ export class InicioComponent {
             { header: 'CONT', field: 'ok_contrato' },
         ]
 
-        /*
-        this.sqlite.getDB('movimientos', this.db, () => {
-            console.log(this.db)
-        })
-        */
-
         this.aCargar = 11
 
         this.cs.getDB('banderas', this.db, () => { this.cargados++ })
